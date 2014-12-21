@@ -58,7 +58,7 @@ func martiniInit() {
 	fmt.Println("Running on port " + viper.GetString("port"))
 
 	sio.Handle("/", m)
-	//http.Handle("/", m)
+//	http.Handle("/", m)
 	//http.ListenAndServe(":"+viper.GetString("port"), m)
 }
 

@@ -32,9 +32,10 @@ var clients map[string]string = map[string]string{}
 var sio *socketio.SocketIOServer
 
 func socketIOInit() {
+	fmt.Println("socketIOInit")
 	config := socketio.Config{}
-	config.HeartbeatTimeout = 60 * 5 // 5 min
-	config.ClosingTimeout = 60 * 5   // 5 min
+	config.HeartbeatTimeout = 60000 * 5 // 5 min
+	config.ClosingTimeout = 60000 * 5   // 5 min
 
 	sio = socketio.NewSocketIOServer(&config)
 
@@ -53,6 +54,7 @@ func socketServerRun() {
 	defer close(ch)
 
 	go func() {
+//		sio.Handle("/", http.FileServer(http.Dir("../build/")))
 		err := http.ListenAndServe(target, sio)
 		ch <- err.Error()
 	}()
@@ -65,7 +67,7 @@ func socketServerRun() {
 		}
 	}()
 
-	fmt.Printf("[%s] Server listening on %s.\n", time.Now().Format(time.Kitchen), target)
+	fmt.Printf("[%s] karaidiasa Server listening on %s.\n", time.Now().Format(time.Kitchen), target)
 	fmt.Println(<-ch)
 }
 
@@ -105,8 +107,8 @@ func onGetComments(ns *socketio.NameSpace, message string) {
 
 	fmt.Println(jsonMap)
 
-	//forumStr := jsonMap["forum"]
-	forumStr := "5346e494331583002c7de60e"
+	forumStr := jsonMap["forum"]
+//	forumStr := "5346e494331583002c7de60e"
 	if bson.IsObjectIdHex(forumStr) == false {
 		jww.ERROR.Printf("`forum` is not valid. Received: `%v`\n", forumStr)
 	}

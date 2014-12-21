@@ -61,17 +61,21 @@
     </form>
   </div>
 </body>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" type="text/javascript"></script>
+
 <script type="text/javascript" src="build/kaiju-client.js"></script>
 <script type="text/javascript">
-$(function() {
+
+  $(function() {
     var kaiju = new Kaiju({
-        url: "http://10.4.126.233:2714",
+        url: "http://localhost:2714",
         forum: "5346e494331583002c7de60e",
         page: "local_test_page_ab",
         selector: "section.comments-section"
     });
 
     kaiju.connect();
-});
+  });
 </script>
 </html>

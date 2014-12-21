@@ -8,7 +8,7 @@ var Kaiju = function(options) {
     this.page = options.page;
     this.$el = $(options.selector);
 
-    var socket = this.socket = io.connect(options.url);
+    this.socket = io.connect(options.url);
 
     this.socket.on('commentsFor', _.bind(this.handleCommentsFor, this));
     this.socket.on('commentPosted', _.bind(this.handleCommentPosted, this));
@@ -147,3 +147,10 @@ Kaiju.prototype.showCommentForm = function() {
 Kaiju.prototype.hideCommentForm = function() {
     this.commentForm.addClass('hidden');
 };
+
+if (typeof exports != 'undefined') {
+    exports.Kaiju = Kaiju;
+}
+if (typeof window != 'undefined') {
+    window.Kaiju = Kaiju;
+}

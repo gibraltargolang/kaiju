@@ -56,17 +56,21 @@ var Root = &cobra.Command{
 }
 
 func RootRun(cmd *cobra.Command, args []string) {
+
+	fmt.Println("karai")
 	socketIOInit()
 	martiniInit()
 	socketServerRun()
 }
 
 func db_init() {
+	fmt.Println(viper.GetString("dbhost") + ":" + viper.GetString("dbport"))
 	session, err := mgo.Dial(viper.GetString("dbhost") + ":" + viper.GetString("dbport"))
 	if err != nil {
 		panic(err)
 	}
 	db = session.DB(viper.GetString("dbname"))
+	fmt.Println(db)
 }
 
 func init() {
